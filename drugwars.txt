@@ -1,0 +1,562 @@
+Lbl G
+ClrHome
+Disp " J.M.'S DRUGWAR","   SIMULATION","","  VERSION 2.00","","  JUST SAY NO."
+2000→Z //Starting money
+5000→Y //Debt?
+0→V
+100→K
+1→B
+2→N
+0→I
+0→J
+100→T //these all possibly the drug count?
+0→M
+0→N
+0→O
+0→P
+0→Q
+0→R
+Pause 
+ClrHome
+Disp "","ORIGINAL GAME","FOR IBM BY:","  JOHN E. DELL",""
+Disp "INSTRUCTIONS?"
+Input "(1=YES,2=NO)",X
+If X=1
+Then
+ClrHome
+Disp "THIS IS A GAME","OF BUYING AND","SELLING. YOUR","GOAL IS TO PAY-","OFF YOUR DEBT TO","THE LOAN SHARK,","AND THEN MAKE AS"
+Pause 
+ClrHome
+Disp "MUCH MONEY AS","POSSIBLE IN A 1","MONTH PERIOD.","WATCH-OUT FOR","THE POLICE IF","YOU DEAL TOO","HEAVILY!"
+Pause 
+ClrHome
+Disp "PRICES FOR DRUGS","ARE:","COCAINE:","15000-28000","HEROINE:","5000-12000","ACID: 1000-4200"
+Pause 
+Disp "WEED: 300-720","SPEED: 70-220","LUDES: 10-50"
+Pause 
+ClrHome
+Disp "GENERALY, TYPE","THE FIRST LETTER","OF WHAT YOU WANT","TO DO, I.E.:","W=WEED, L=LUDES","ETC..."
+Pause 
+Disp "BUT, 1=YES AND","2=NO"
+Pause 
+ClrHome
+Disp "THE LAST NUMBER","IN THE PRICES","LIST IS YOUR","WALLET. THE LAST","NUMBER IN YOUR","TRENCHCOAT IS","FREE SPACE."
+Pause 
+End
+Lbl θ
+round(rand*12000+16000,0)→C //Cocaine price, random number, 16000-28000
+round(rand*7000+5000,0)→H //Heroin price, random number, 5000-12000
+round(rand*34+10,0)*100→A //Acid price, random number, 1000-4400
+round(rand*42+33,0)*10→W //Weed price, 330-750
+round(rand*15+7,0)*10→S //Speed price, 70-220
+round(rand*4+1,0)*10→L //Ludes price, 10-50
+round(rand*20,0)→D /*Random event generator:
+					D=1, ludes price = 2;
+					D=2, weed price= 122;
+					D=3, heroin price = 850+(random*1150);
+					D=4 || D=5, heroin price= 18000+(random*25000);
+					D=6 || D=7, cocaine price= 80000+(random*60000);
+					D=8, money = (money/3)*2
+					D=15 && money >=300, trenchcoat with 200 more space
+					D=14, ask if smoke weed and if yes then die
+					D=12 || D=13, buy gun (implement later)
+					D=16 and K >=8, find stuff on ground
+					D=17, acid price= ((250+(random*550))
+					implement combat, if any
+					*/
+
+If D=1
+Then
+ClrHome
+Disp "RIVAL DEALERS","ARE SELLING","CHEAP LUDES!!!"
+Pause 
+2→L
+End
+If D=2
+Then
+ClrHome
+Disp "WEED PRICES HAVE","BOTTOMED-OUT!!!"
+Pause 
+122→W
+End
+If D=3
+Then
+ClrHome
+Disp "PIGS ARE SELLING","CHEAP HEROINE","FROM LAST WEEK'S","RAID!!!!"
+Pause 
+rand→H
+(850+(H*1150))→H
+(int(H)→H
+End
+If D=4 or D=5
+Then
+ClrHome
+Disp "ADDICTS ARE","BUYING HEROINE","AT OUTRAGEOUS","PRICES!!!"
+Pause 
+rand→H
+(18000+(H*25000))→H
+(int(H)→H
+End
+If D=6 or D=7
+Then
+ClrHome
+Disp "PIGS MADE A BIG","COKE BUST!","PRICES ARE","OUTRAGEOUS!!!!"
+Pause 
+rand→C
+(80000+(C*60000))→C
+(int(C)→C
+End
+If D=8
+Then
+ClrHome
+Disp "YOU WERE MUGGED","IN THE SUBWAY!"
+Pause 
+(Z/3)→Z
+(int(Z)→Z
+(Z*2)→Z
+End
+If D=15 and Z≥300
+Then
+ClrHome
+Disp "WILL YOU BUY A","NEW TRENCHCOAT","WITH MORE","POCKETS FOR 200","BUCKS?"
+Input X
+If X=1
+Then
+(T+10)→T
+(T-M-N-O-P-Q-R)→K
+(Z-200)→Z
+End
+End
+If D=14
+Then
+ClrHome
+Disp "THERE'S SOME","WEED HERE THAT","SMELLS LIKE GOOD","STUFF!!"
+Pause 
+Disp "WILL YOU SMOKE"
+Input "IT?",X
+If X=1
+Then
+ClrHome
+Disp "YOU HALLUCINATE","ON THE WILDEST","TRIP OF YOUR","LIFE,"
+Pause 
+Disp "STUMBLE ON TO","THE SUBWAY","TRACKS AND GET","CREAMED BY A","TRAIN."
+Pause 
+ClrHome
+Disp "JUST SAY NO TO","DRUGS."
+Pause 
+Goto C
+End
+End
+If Z≥500 and K≥5
+Then
+If D=12 or D=13
+Then
+ClrHome
+Disp "WILL YOU BUY A"
+round(rand*2,0)→X
+If X=0
+Disp "BARRETTA"
+If X=1
+Disp "SATURDAY NIGHT","SPECIAL"
+If X=2
+Disp ".44 MAGNUM"
+Disp "FOR 400 DOLLARS?"
+Input X
+If X=1
+Then
+(I+1)→I
+(Z-400)→Z
+(T-5)→T
+(T-M-N-O-P-Q-R)→K
+End
+End
+End
+If D=16 and K≥8
+Then
+int((rand*7+1)→F
+ClrHome
+Disp "YOU FOUND:",F,"UNITS OF:"
+int((rand*5)→X
+If X=0
+Then
+Disp "           LUDES"
+(R+F)→R
+End
+If X=1
+Then
+Disp "           SPEED"
+(Q+F)→Q
+End
+If X=2
+Then
+Disp "            WEED"
+(P+F)→P
+End
+If X=3
+Then
+Disp "            ACID"
+(O+F)→O
+End
+If X=4
+Then
+Disp "         HEROINE"
+(N+F)→N
+End
+If X=5
+Then
+Disp "         COCAINE"
+(M+F)→M
+End
+Disp "ON A DEAD DUDE","IN THE SUBWAY!!!"
+(T-M-N-O-P-Q-R)→K
+Pause 
+Goto A
+End
+If D=17
+Then
+ClrHome
+Disp "THE MARKET HAS","BEEN FLOODED","WITH CHEAP HOME-","MADE ACID!!!!"
+int((250+(rand*550))→A
+Pause 
+Goto A
+End
+If D=9 or D=10 or D=11
+Then
+If (M+N+O+P+Q+R)≥50
+Then
+ClrHome
+If D=9
+1→D
+If D=10
+3→D
+If D=11
+4→D
+Disp "OFFICER HARDASS","AND",D,"OF HIS DEPPUTIES","ARE AFTER YOU!"
+Pause 
+ClrHome
+Lbl M
+Menu("BEING CHASED!!","VIEW GUNS",H,"VIEW DAMMAGE",I,"NUMBER OF PIGS",J,"RUN",K,"FIGHT",L)
+Lbl H
+ClrHome
+Disp "NUMBER OF GUNS","YOU HAVE:"
+Disp I
+Pause 
+Goto M
+Lbl I
+ClrHome
+Disp "YOUR DAMMAGE="
+Disp J
+Disp "(50 DAMMAGE AND","YOU DIE!)"
+Pause 
+Goto M
+Lbl J
+ClrHome
+Disp "THERE ARE:"
+(D+1)→D
+Disp D
+(D-1)→D
+Disp "PIGS STILL","CHASING YOU!"
+Pause 
+Goto M
+Lbl K
+ClrHome
+Disp "","","","","    RUNNING"
+round(rand*1,0)→X
+If X=0
+Then
+ClrHome
+Disp "YOU LOST THEM IN","AN ALLEY!!"
+Pause 
+If B=31
+Then
+Goto A
+Else
+Goto θ
+End
+End
+If X=1
+Then
+ClrHome
+Disp "YOU CAN'T SHAKE","THEM!"
+Pause 
+Goto O
+End
+Lbl L
+If I=0
+Then
+ClrHome
+Disp "YOU DON'T HAVE","ANY GUNS!"
+Pause 
+Disp "YOU HAVE TO RUN!"
+Pause 
+Goto M
+Else
+round(rand*1,0)→X
+If X=0
+Then
+ClrHome
+Disp "YOU MISSED!!!"
+Pause 
+Else
+ClrHome
+Disp "YOU KILLED ONE!!"
+Pause 
+(D-1)→D
+If D=(-1)
+Goto N
+End
+Lbl O
+round(rand*1,0)→X
+ClrHome
+Disp "THEY'RE FIRING","AT YOU!!"
+If X=0
+Then
+Disp "THEY MISSED!!"
+Pause 
+Goto M
+Else
+Disp "YOU'VE BEEN HIT!"
+(J+3)→J
+Pause 
+If J≥50
+Then
+Disp "YOU'VE BEEN ","KILLED!!"
+Pause 
+Goto C
+End
+Goto M
+End
+Lbl N
+ClrHome
+Disp "YOU KILLED ALL","OF THEM!"
+int((rand*1250+750)→X
+(Z+X)→Z
+Pause 
+Disp "YOU FOUND"
+Disp X
+Disp "DOLLARS ON","OFFICER HARDASS'","CARCASS!!"
+Pause 
+If Z≥1200
+Then
+ClrHome
+Disp "WILL YOU PAY","1000 DOLLARS FOR","A DOCTOR TO SEW","YOU UP?"
+Input X
+If X=1
+Then
+(Z-1000)→Z
+0→J
+End
+End
+
+End
+End
+End
+
+Lbl A
+ClrHome
+Menu("DRUGWAR!","SEE PRICES",1,"TRENCHCOAT",2,"BUY",3,"SELL",4,"JET",5,"SEE LOAN SHARK",6,"VISIT BANK",7)
+Lbl 1
+ClrHome
+Disp C,H,A,W,S,L,Z
+Output(1,1,"COCAINE")
+Output(2,1,"HEROINE")
+Output(3,1,"ACID")
+Output(4,1,"WEED")
+Output(5,1,"SPEED")
+Output(6,1,"LUDES")
+Output(7,1,"WALLET")
+Pause 
+Goto A
+Lbl 2
+ClrHome
+Disp M,N,O,P,Q,R,K
+Output(1,1,"COCAINE")
+Output(2,1,"HEROINE")
+Output(3,1,"ACID")
+Output(4,1,"WEED")
+Output(5,1,"SPEED")
+Output(6,1,"LUDES")
+Output(7,1,"FREE SPACE")
+Pause 
+Goto A
+Lbl 3
+ClrHome
+Disp "DAY NUMBER:",B
+Input "WHAT TO BUY?",F
+If F≠C and F≠H and F≠A and F≠W and F≠S and F≠L
+Goto 3
+int((Z/F)→E
+Disp "HOW MUCH?","YOU CAN AFFORD:",E,"YOU CAN HOLD:",K
+Input G
+If G>K or G<0 or G>E
+Goto 3
+(Z-(FG))→Z
+If F=C
+(M+G)→M
+If F=H
+(N+G)→N
+If F=A
+(O+G)→O
+If F=W
+(P+G)→P
+If F=S
+(Q+G)→Q
+If F=L
+(R+G)→R
+(T-M-N-O-P-Q-R)→K
+Goto A
+Lbl 4
+ClrHome
+Disp "DAY NUMBER:",B
+Input "WHAT TO SELL?",F
+If F≠C and F≠H and F≠A and F≠W and F≠S and F≠L
+Goto 4
+If F=C
+M→E
+If F=H
+N→E
+If F=A
+O→E
+If F=W
+P→E
+If F=S
+Q→E
+If F=L
+R→E
+Disp "HOW MUCH?","YOU HAVE:",E
+Input G
+If G>E or G<0
+Goto 4
+If F=C
+(M-G)→M
+If F=H
+(N-G)→N
+If F=A
+(O-G)→O
+If F=W
+(P-G)→P
+If F=S
+(Q-G)→Q
+If F=L
+(R-G)→R
+(Z+FG)→Z
+(T-M-N-O-P-Q-R)→K
+Goto A
+Lbl 5
+ClrHome
+Menu("WHERE TO, DUDE?","BRONX",R,"GHETTO",B,"CENTRAL PARK",B,"MANHATTEN",B,"CONEY ISLAND",B,"BROOKLYN",B,"OOPS... STAY!",A)
+Lbl R
+If N=2
+Then
+ClrHome
+Disp "YOU'RE ALREADY","IN THE BRONX!"
+Pause 
+Goto 5
+End
+2→N
+
+Goto S
+Lbl B
+1→N
+
+Lbl S
+ClrHome
+Disp "","","","","     SUBWAY"
+(B+1)→B
+int((Y*1.1)→Y
+int((V*1.06)→V
+If B=31
+Goto C
+Goto θ
+Lbl 6
+If N=1
+Then
+ClrHome
+Disp "THE LOAN SHARK","ONLY DEALS IN","THE BRONX."
+Pause 
+Goto A
+End
+ClrHome
+Menu("LOAN SHARK...","REPAY",P,"BORROW",Q)
+Lbl P
+ClrHome
+Disp "YOU'RE DEBT IS:",Y,"YOUR WALLET=",Z,"REPAY HOW MUCH?"
+Input F
+If F>Z or F<0 or F>Y
+Goto 6
+(Y-F)→Y
+(Z-F)→Z
+Goto A
+Lbl Q
+ClrHome
+Disp "YOUR DEBT=",Y,"YOUR WALLET=",Z,"BORROW HOW MUCH"
+Input "MORE?",F
+If F>5000
+Then
+ClrHome
+Disp "YOU THINK HE'S","CRAZY, MAN?!"
+Pause 
+Goto Q
+End
+If F<0
+Goto 6
+(Y+F)→Y
+(Z+F)→Z
+Goto A
+Lbl 7
+If N=1
+Then
+ClrHome
+Disp "THE BANK IS IN","THE BRONX."
+Pause 
+Goto A
+End
+Menu("      BANK      ","VIEW ACCOUNT",D,"DEPOSIT",E,"WITHDRAW",F,"GOODBYE",A)
+Lbl D
+ClrHome
+Disp "YOUR ACCOUNT=",V
+Pause 
+Goto 7
+Lbl E
+ClrHome
+Disp "HOW MUCH TO","DEPOSIT?","YOU HAVE:",Z
+Input G
+If G>Z or G<0
+Goto E
+(V+G)→V
+(Z-G)→Z
+Goto 7
+Lbl F
+ClrHome
+Disp "HOW MUCH TO","WITHDRAW?","ACCOUNT=",V
+Input X
+If X>V or X<0
+Goto F
+(V-X)→V
+(Z+X)→Z
+Goto 7
+Lbl C
+ClrHome
+Disp "   GAME OVER!"
+(V+Z-Y)→V
+If V<0
+Then
+0→V
+Else
+(√(V/31.5)→V
+If V>100
+100→V
+End
+round(V,0)→V
+Disp "YOUR SCORE (ON A","SCALE OF 1 TO","100)=",V,""
+Pause 
+Input "PLAY AGAIN?",V
+If V=1
+Goto G
+ClrHome
+Disp "   THANKS FOR","    PLAYING!"
+Pause 
+ClrHome
+Disp "","","REMEMBER:","","WATCH YOUR BACK."
+Pause 
+Disp "","HAVE A NICE DAY!"
