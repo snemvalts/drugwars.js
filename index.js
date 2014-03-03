@@ -8,6 +8,9 @@ game.player.stocks = {
 	cocaine: 0,
 	acid: 0,
 	speed: 0,
+};
+game.regions = {
+
 }
 game.prices = {
 	ludes: Math.floor(Math.random()*4+1)*10,
@@ -16,6 +19,16 @@ game.prices = {
 	cocaine: Math.floor(Math.random()*12000+16000),
 	acid: Math.floor(Math.random()*34+10)*100,
 	speed: Math.floor(Math.random()*15+7)*10,
+}
+game.newPrices = function(){
+	game.prices = {
+	ludes: Math.floor(Math.random()*4+1)*10,
+	weed: Math.floor(Math.random()*42+33)*10,
+	heroin: Math.floor(Math.random()*7000+5000),
+	cocaine: Math.floor(Math.random()*12000+16000),
+	acid: Math.floor(Math.random()*34+10)*100,
+	speed: Math.floor(Math.random()*15+7)*10,
+}
 }
 game.buy = function(options){
 	var price = game.prices[options.drug];

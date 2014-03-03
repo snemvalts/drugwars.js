@@ -9,7 +9,7 @@ Disp " J.M.'S DRUGWAR","   SIMULATION","","  VERSION 2.00","","  JUST SAY NO."
 2→N
 0→I
 0→J
-100→T //these all possibly the drug count?
+100→T //health
 0→M
 0→N
 0→O
