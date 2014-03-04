@@ -1,6 +1,7 @@
 var game = {};
 game.player = {};
 game.player.money = 2000;
+game.player.debt = 5000;
 game.player.stocks = {
 	ludes: 0,
 	weed: 0,
@@ -58,6 +59,7 @@ game.move = function(location){
 	for(var i = 0; i < game.locations.length; i++){
 		if(game.locations[i] === location){
 			game.player.location = location;
+			game.player.debt = Math.floor(game.player.debt * 1.1);
 			game.newPrices();
 		}
 	}
@@ -79,3 +81,5 @@ game.move("Central park");
 console.log(game.player.location)
 console.log(game.trade({tradeType:"sell",drug:"speed",quantity:5}))
 console.log(game.getPrice("cocaine"));
+game.move("Manhattan")
+console.log("Your debt: $",game.player.debt)

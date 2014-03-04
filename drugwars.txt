@@ -2,7 +2,7 @@ Lbl G
 ClrHome
 Disp " J.M.'S DRUGWAR","   SIMULATION","","  VERSION 2.00","","  JUST SAY NO."
 2000→Z //Starting money
-5000→Y //Debt?
+5000→Y //Debt
 0→V
 100→K
 1→B
