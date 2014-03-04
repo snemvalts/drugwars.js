@@ -11,7 +11,7 @@ game.player.stocks = {
 	speed: 0,
 };
 game.player.location = "Bronx";
-game.locations = ["Bronx","Manhattan","Central park","Manhattan","Coney Island"]
+game.locations = ["Bronx","Central park","Manhattan","Coney Island"]
 game.prices = {
 	ludes: Math.floor(Math.random()*4+1)*10,
 	weed: Math.floor(Math.random()*42+33)*10,
@@ -28,10 +28,35 @@ game.newPrices = function(){
 	cocaine: Math.floor(Math.random()*12000+16000),
 	acid: Math.floor(Math.random()*34+10)*100,
 	speed: Math.floor(Math.random()*15+7)*10,
-}
+	}
 }
 game.getPrice = function(drug){
 	return game.prices[drug]
+}
+game.payDebt = function(payment){
+	if(game.player.location === "Bronx"){
+	if(game.player.money >= payment){
+		game.player.debt -= payment;
+		game.player.money -= payment;
+		return "Your debt: $"+game.player.debt;
+	}
+	else{
+		return "You don't have enough money."
+	}
+	}
+	else{
+		return "The loan shark is in Bronx."
+	}
+}
+game.getDebt = function(payment){
+	if(game.player.location === "Bronx"){
+		game.player.debt += payment;
+		game.player.money += payment;
+		return "Your debt: $"+game.player.debt;
+	}
+	else{
+		return "The loan shark is in Bronx."
+	}
 }
 game.buy = function(options){
 	var price = game.getPrice(options.drug);
@@ -81,5 +106,7 @@ game.move("Central park");
 console.log(game.player.location)
 console.log(game.trade({tradeType:"sell",drug:"speed",quantity:5}))
 console.log(game.getPrice("cocaine"));
-game.move("Manhattan")
-console.log("Your debt: $",game.player.debt)
+game.move("Bronx")
+console.log(game.payDebt(game.player.money))
+game.move("Central park");
+console.log(game.player.debt)
