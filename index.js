@@ -1,3 +1,4 @@
+"use strict";
 var game = {};
 game.player = {};
 game.player.money = 2000;
@@ -82,18 +83,16 @@ game.sell = function(options){
 	game.player.money+= price*options.quantity;
 	console.log("Trade complete. You have sold a total of",options.quantity,options.drug,"at $",price);
 	console.log("You have $",game.player.money);
-	game.deals.push({drug:options.drug,type:"sell",quantity:options.quantity,location:game.player.location,date:game.day, price: game.player.money-moneyBefore,drugPrice: game.getPrice(options.drug)})
+	game.deals.push({drug:options.drug,type:"sell",quantity:options.quantity,location:game.player.location,date:game.day, price: game.player.money-moneyBefore,drugPrice: game.getPrice(options.drug)});
 	return "You currently have "+game.player.stocks[options.drug]+" "+options.drug
 };
 game.move = function(location){
-	for(var i = 0; i < game.locations.length; i++){
-		if(game.locations[i] === location){
+		if(game.locations.indexOf(location) >= 0){
 			game.player.location = location;
 			game.day++;
 			game.player.debt = Math.floor(game.player.debt * 1.1);
 			game.newPrices();
 		}
-	}
 };
 game.trade = function(options){
 	if(typeof options.tradeType !== "string") return new Error("Trade type not specified");
