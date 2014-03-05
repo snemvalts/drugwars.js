@@ -10,6 +10,8 @@ game.player.stocks = {
 	acid: 0,
 	speed: 0,
 };
+game.day = 0;
+game.deals = [];
 game.player.location = "Bronx";
 game.locations = ["Bronx","Central park","Manhattan","Coney Island"]
 game.prices = {
@@ -67,23 +69,27 @@ game.buy = function(options){
 	if(game.player.money === moneyBefore && options.quantity !== 0) return "You don't have enough money";
 	game.player.stocks[options.drug]+=options.quantity
 	console.log("Trade complete. You have bought a total of",options.quantity,options.drug,"at $",price);
-	console.log("You have $",game.player.money)
-	return "You currently have "+game.player.stocks[options.drug]+" "+options.drug
+	console.log("You have $",game.player.money);
+	game.deals.push({drug:options.drug,type:"buy",quantity:options.quantity,location:game.player.location,date:game.day, price: moneyBefore-game.player.money,drugPrice: game.getPrice(options.drug)})
+	return "You currently have "+game.player.stocks[options.drug]+" "+options.drug;
 }
 game.sell = function(options){
 	var price = game.getPrice(options.drug);
+	var moneyBefore = game.player.money;
 	var quantityBefore = game.player.stocks[options.drug];
 	game.player.stocks[options.drug]-= options.quantity > game.player.stocks[options.drug] ? 0 : options.quantity;
 	if(game.player.stocks[options.drug] === quantityBefore && options.quantity !== 0) return "You don't have enough of that drug.";
 	game.player.money+= price*options.quantity;
 	console.log("Trade complete. You have sold a total of",options.quantity,options.drug,"at $",price);
 	console.log("You have $",game.player.money)
+	game.deals.push({drug:options.drug,type:"sell",quantity:options.quantity,location:game.player.location,date:game.day, price: game.player.money-moneyBefore,drugPrice: game.getPrice(options.drug)})
 	return "You currently have "+game.player.stocks[options.drug]+" "+options.drug
 }
 game.move = function(location){
 	for(var i = 0; i < game.locations.length; i++){
 		if(game.locations[i] === location){
 			game.player.location = location;
+			game.day++;
 			game.player.debt = Math.floor(game.player.debt * 1.1);
 			game.newPrices();
 		}
@@ -110,3 +116,4 @@ game.move("Bronx")
 console.log(game.payDebt(game.player.money))
 game.move("Central park");
 console.log(game.player.debt)
+console.log(game.deals)
