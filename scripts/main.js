@@ -5,3 +5,6 @@ $("#playButton").click(function(){
 $("#buyButton").click(function(){
 	$("#log").text(game.trade({tradeType:"buy",drug:$("#drugInput").val().toLowerCase(),quantity:parseInt($("#quantityInput").val())}))
 })
+$("#sellButton").click(function(){
+	$("#log").text(game.trade({tradeType:"sell",drug:$("#drugInput").val().toLowerCase(),quantity:parseInt($("#quantityInput").val())}))
+})
