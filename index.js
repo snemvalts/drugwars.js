@@ -98,7 +98,6 @@ game.trade = function(options){
 	if(typeof options.tradeType !== "string") return new Error("Trade type not specified");
 	if(typeof options.drug !== "string") return new Error("Drug name not specified.");
 	if(typeof options.quantity !== "number") return new Error("Drug quantity not specified.");
-	//store reference of that number so that it doesn't change when accessing
 	if(options.tradeType === "buy"){
 		return game.buy(options);
 	}

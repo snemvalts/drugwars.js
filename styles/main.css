@@ -10,3 +10,6 @@ body{
 .dontDisplayYet{
 	display:none;
 }
+#moveButton{
+	margin-bottom:0.5em;
+}
