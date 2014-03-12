@@ -8,15 +8,24 @@
 	<h1 id="header">Drug Wars</h1>
 	<div class="container">
 	<div class="well">
-	<div id="location" class="dontDisplayYet">You're at: <span>Bronx</span>
-	<input type="text" class="dontDisplayYet" id="locationInput" placeholder="Location">
-	<button class="btn btn-success dontDisplayYet" id="moveButton">Move</button></div>
-	<div id="log" class="dontDisplayYet"></div>
+	<div id="log" class="dontDisplayYet gamePanel"><div id="money">You currently have: $<span>2000</span></div>
+	<div id="stock">You currently have: <span></span></div>
+	<div id="status"></div>
+	</div>
+	<div id="location" class="dontDisplayYet gamePanel">You're at: <span>Bronx</span>
+	<input type="text" id="locationInput" placeholder="Location">
+	<button class="btn btn-success" id="moveButton">Move</button></div>
+	<div id="debt" class="dontDisplayYet gamePanel">
+		<input type="text" id="debtInput" placeholder="Debt amount">
+		<button class="btn btn-success" id="getDebtButton">Get Debt</button>
+		<button class="btn btn-success" id="payDebtButton">Pay Debt</button>
+	</div>
 	<button class="btn btn-success btn-lg btn-block" id="playButton">Play!</button>
 	<input type="text" class="dontDisplayYet" id="drugInput" placeholder="Drug">
 	<input type="text" class="dontDisplayYet" id="quantityInput" placeholder="Quantity">
 	<button class="btn btn-success dontDisplayYet" id="buyButton">Buy</button>
 	<button class="btn btn-success dontDisplayYet" id="sellButton">Sell</button>
+	<button class="btn btn-success dontDisplayYet" id="getQuotesButton">Get Price</button>
 	</div>
 	</div>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
