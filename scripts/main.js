@@ -3,14 +3,18 @@ $("#playButton").click(function(){
 	$(".dontDisplayYet").toggle();	
 })
 $("#buyButton").click(function(){
+	if(parseInt($("#quantityInput").val()) > 0){
 	$("#log #status").text(game.trade({tradeType:"buy",drug:$("#drugInput").val().toLowerCase(),quantity:parseInt($("#quantityInput").val())}))
 	$("#stock span").text(getInventory())
 	$("#log #money span").text(game.player.money)
+}
 })
 $("#sellButton").click(function(){
+	if(parseInt($("#quantityInput").val()) > 0){
 	$("#log #status").text(game.trade({tradeType:"sell",drug:$("#drugInput").val().toLowerCase(),quantity:parseInt($("#quantityInput").val())}))
 	$("#stock span").text(getInventory())
 	$("#log #money span").text(game.player.money)
+}
 })
 $("#moveButton").click(function(){
 	game.move($("#locationInput").val())
