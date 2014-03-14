@@ -29,9 +29,14 @@ $("#payDebtButton").click(function(){
 	$("#log #money span").text(game.player.money)
 })
 $("#getQuotesButton").click(function(){
-	$("#log #status").text("The drug "+$("#drugInput").val()+" costs $"+game.prices[$("#drugInput").val()])
+	var drugname = $("#drugInput").val()
+	if(game.prices[drugname]){
+		$("#log #status").text("The drug "+drugname+" costs $"+game.prices[drugname])
+	}
 })
-
+$("#getDebtAmountButton").click(function(){
+	$("#log #status").text("Your current debt: $"+game.player.debt)
+})
 function getInventory(){
 	var stringToSend = "";
 	for(var i in game.player.stocks){
